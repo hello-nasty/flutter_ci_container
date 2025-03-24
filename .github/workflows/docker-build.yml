@@ -28,9 +28,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
+          tags: ghcr.io/hello-nasty/${{ github.event.repository.name }}:latest
           
       - name: Clean up local images
         run: |
-          docker rmi ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
+          docker rmi ghcr.io/hello-nasty/${{ github.event.repository.name }}:latest
           docker system prune -f
