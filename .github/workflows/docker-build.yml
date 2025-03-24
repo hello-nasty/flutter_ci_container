@@ -12,7 +12,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-      
+      actions: write
+    
     steps:
       - uses: actions/checkout@v3
       
@@ -34,3 +35,9 @@ jobs:
         run: |
           docker rmi ghcr.io/hello-nasty/${{ github.event.repository.name }}:latest
           docker system prune -f
+
+      - name: Make the package public
+        run: |
+          gh api --method PATCH -H "Accept: application/vnd.github.v3+json" /user/packages/container/${{ github.event.repository.name }}/visibility --field visibility=public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
